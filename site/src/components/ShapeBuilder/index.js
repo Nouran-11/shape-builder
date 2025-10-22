@@ -138,7 +138,7 @@ const ShapeBuilder = () => {
     }
   };
 
-  const clearShape = () => {
+  const resetShape = () => {
     const poly = polyRef.current;
     if (!poly) return;
 
@@ -199,7 +199,7 @@ const ShapeBuilder = () => {
       </CanvasContainer>
 
       <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 3, mb: 3, flexWrap: "wrap" }}>
-        <Button variant="contained" onClick={clearShape}>Clear</Button>
+        <Button variant="contained" onClick={resetShape}>Reset</Button>
         <Button variant="contained" onClick={closeShape}>Close Shape</Button>
         <Button variant="contained" onClick={handleMaximize}>Maximize</Button>
       </Box>
@@ -214,7 +214,6 @@ const ShapeBuilder = () => {
           className="copy-btn"
           onClick={() => {
             navigator.clipboard.writeText(result).then(() => {
-              // Optional: Add temporary feedback
               const btn = document.querySelector(".copy-btn");
               const originalText = btn.textContent;
               btn.textContent = "Copied!";
