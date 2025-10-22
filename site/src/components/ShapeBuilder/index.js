@@ -4,6 +4,7 @@ import { Wrapper, CanvasContainer, OutputBox, StyledSVG } from "./shapeBuilder.s
 import { Button, Typography, Box } from "@layer5/sistent";
 import { SVG, extend as SVGextend } from "@svgdotjs/svg.js";
 import draw from "@svgdotjs/svg.draw.js";
+import { ContentCopy } from "@mui/icons-material";
 
 SVGextend(SVG.Polygon, draw);
 
@@ -204,10 +205,30 @@ const ShapeBuilder = () => {
       </Box>
 
       <OutputBox>
-        <Typography variant="subtitle1" component="h6">
-          Polygon Coordinates (SVG format):
-        </Typography>
-        <textarea readOnly value={result} />
+        <textarea
+          readOnly
+          value={result}
+          placeholder="Your polygon coordinates will appear here..."
+        />
+        <button
+          className="copy-btn"
+          onClick={() => {
+            navigator.clipboard.writeText(result).then(() => {
+              // Optional: Add temporary feedback
+              const btn = document.querySelector(".copy-btn");
+              const originalText = btn.textContent;
+              btn.textContent = "Copied!";
+              setTimeout(() => {
+                btn.textContent = originalText;
+              }, 2000);
+            }).catch(err => {
+              console.error("Failed to copy:", err);
+            });
+          }}
+          disabled={!result}
+        >
+          Copy Coordinates
+        </button>
       </OutputBox>
     </Wrapper>
   );
