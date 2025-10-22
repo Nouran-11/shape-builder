@@ -66,6 +66,13 @@ const ShapeBuilder = () => {
       poly.draw("param", "snapToGrid", 0.001);
     }
 
+    if (e.key === "Escape" || (e.detail === 2)) {
+      poly.draw("done");
+      poly.fill("#00B39F");
+      showCytoArray();
+    }
+
+
     if (e.key === "Enter") {
       poly.draw("done");
       poly.fill("#00B39F");
@@ -115,6 +122,13 @@ const ShapeBuilder = () => {
       draw.draw("param", "snapToGrid", 16);
       draw.on("drawstart", attachKeyListeners);
       draw.on("drawdone", detachKeyListeners);
+
+      draw.on("dblclick", () => {
+        draw.draw("done");
+        draw.fill("#00B39F");
+        showCytoArray();
+      });
+
 
       polyRef.current = draw;
       setError(null);
