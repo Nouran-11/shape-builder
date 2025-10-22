@@ -205,27 +205,30 @@ const ShapeBuilder = () => {
       </Box>
 
       <OutputBox>
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <Typography variant="subtitle1" component="h6">
-            Polygon Coordinates (SVG format):
-          </Typography>
-          <Button
-            variant="outlined"
-            startIcon={<ContentCopy />}
-            onClick={() => {
-              navigator.clipboard.writeText(result).then(() => {
-                alert("Coordinates copied to clipboard!");
-              }).catch(err => {
-                console.error("Failed to copy:", err);
-                alert("Failed to copy coordinates");
-              });
-            }}
-            disabled={!result}
-          >
-            Copy
-          </Button>
-        </Box>
-        <textarea readOnly value={result} />
+        <textarea
+          readOnly
+          value={result}
+          placeholder="Your polygon coordinates will appear here..."
+        />
+        <button
+          className="copy-btn"
+          onClick={() => {
+            navigator.clipboard.writeText(result).then(() => {
+              // Optional: Add temporary feedback
+              const btn = document.querySelector(".copy-btn");
+              const originalText = btn.textContent;
+              btn.textContent = "Copied!";
+              setTimeout(() => {
+                btn.textContent = originalText;
+              }, 2000);
+            }).catch(err => {
+              console.error("Failed to copy:", err);
+            });
+          }}
+          disabled={!result}
+        >
+          Copy Coordinates
+        </button>
       </OutputBox>
     </Wrapper>
   );
